@@ -2,14 +2,8 @@
 {
     internal class ReservationServiceTests
     {
-        [Theory]
+        [Test]
         public void CreateReservation_WithValidInformation_ReturnsCreatedReservation()
-        {
-            Assert.Fail();
-        }
-
-        [Theory]
-        public void CreateReservation_WithInvalidInformation_ReturnsError()
         {
             Assert.Fail();
         }
@@ -33,7 +27,7 @@
         }
 
         [Test]
-        public void GetSpecificReservation_AsCustomerWithoutPermission_ReturnsError()
+        public void GetSpecificReservation_AsCustomerWithoutPermission_ThrowsUnauthorizedException()
         {
             Assert.Fail();
         }
@@ -51,19 +45,19 @@
         }
 
         [Theory]
-        public void UpdateReservation_WithoutPermission_ReturnsError()
+        public void UpdateReservation_WithoutPermission_ThrowsUnauthorizedException()
         {
             Assert.Fail();
         }
 
         [Theory]
-        public void DeleteReservation_WithPermission_ReturnsSuccess()
+        public void DeleteReservation_WithPermission_ReturnsWithoutErrors()
         {
             Assert.Fail();
         }
 
         [Theory]
-        public void DeleteReservation_WithoutPermission_ReturnsError()
+        public void DeleteReservation_WithoutPermission_ThrowsUnauthorizedException()
         {
             Assert.Fail();
         }
