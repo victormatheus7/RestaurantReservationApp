@@ -40,7 +40,7 @@ namespace UnitTests.Domain
         {
             // Act
             var reservationCreated = 
-                new Reservation(creatorEmail: reservation.CreatorEmail,
+                Reservation.Create(creatorEmail: reservation.CreatorEmail,
                     date: reservation.Date,
                     numberSeats: reservation.NumberSeats,
                     locationPreference: reservation.LocationPreference,
@@ -75,7 +75,7 @@ namespace UnitTests.Domain
             {
                 // Act
                 var reservationCreated =
-                    new Reservation(creatorEmail: reservation.CreatorEmail,
+                    Reservation.Create(creatorEmail: reservation.CreatorEmail,
                         date: reservation.Date,
                         numberSeats: reservation.NumberSeats,
                         locationPreference: reservation.LocationPreference,

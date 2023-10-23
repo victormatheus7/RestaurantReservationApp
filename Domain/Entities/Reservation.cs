@@ -5,6 +5,7 @@ namespace Domain.Entities
 {
     public class Reservation
     {
+        public Guid Id { get; set; }
         public string CreatorEmail { get; }
         public DateTime Date { get; }
         public int NumberSeats { get; }
@@ -12,15 +13,22 @@ namespace Domain.Entities
         public string Observation { get; }
 
         public Reservation
-            (string creatorEmail, DateTime date, int numberSeats, Location locationPreference, string observation)
+            (Guid id, string creatorEmail, DateTime date, int numberSeats, Location locationPreference, string observation)
         {
-            CheckReservationData(date, numberSeats, observation);
-
+            Id = id;
             CreatorEmail = creatorEmail;
             Date = date;
             NumberSeats = numberSeats;
             LocationPreference = locationPreference;
             Observation = observation;
+        }
+
+        public static Reservation Create
+            (string creatorEmail, DateTime date, int numberSeats, Location locationPreference, string observation, Guid? id = null)
+        {
+            CheckReservationData(date, numberSeats, observation);
+
+            return new Reservation(id ?? new Guid(), creatorEmail, date, numberSeats, locationPreference, observation);
         }
 
         private static void CheckReservationData(DateTime date, int numberSeats, string observation)
