@@ -21,7 +21,7 @@ namespace Domain.Entities
             Role = role;
         }
 
-        public static User CreateUser(string email, string password, Role role, byte[]? passwordSalt = null)
+        public static User Create(string email, string password, Role role, byte[]? passwordSalt = null)
         {
             CheckUserData(email, password);
 

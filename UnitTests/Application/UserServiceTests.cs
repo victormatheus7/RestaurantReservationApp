@@ -19,8 +19,8 @@ namespace UnitTests.Application
 
             var userRepositoryMock = new Mock<IUserRepository>();
             int callOrder = 0;
-            userRepositoryMock.Setup(x => x.GetUser(email)).Callback(() => Assert.That(callOrder++, Is.EqualTo(0)));
-            userRepositoryMock.Setup(x => x.SaveUser(It.IsAny<User>())).Callback(() => Assert.That(callOrder++, Is.EqualTo(1)));
+            userRepositoryMock.Setup(ur => ur.Get(email)).Callback(() => Assert.That(callOrder++, Is.EqualTo(0)));
+            userRepositoryMock.Setup(ur => ur.Save(It.IsAny<User>())).Callback(() => Assert.That(callOrder++, Is.EqualTo(1)));
 
             var userService = new UserService(userRepositoryMock.Object);
 
@@ -33,8 +33,8 @@ namespace UnitTests.Application
                 Assert.That(user.Email, Is.EqualTo(email));
                 Assert.That(user.Role, Is.EqualTo(role));
             });
-            userRepositoryMock.Verify(ur => ur.GetUser(email), Times.Once());
-            userRepositoryMock.Verify(ur => ur.SaveUser(user), Times.Once());
+            userRepositoryMock.Verify(ur => ur.Get(email), Times.Once());
+            userRepositoryMock.Verify(ur => ur.Save(user), Times.Once());
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace UnitTests.Application
             var role = Role.Admin;
 
             var userRepositoryMock = new Mock<IUserRepository>();
-            userRepositoryMock.Setup(x => x.GetUser(email)).Returns(new User(email, new byte[0], new byte[0], role));
+            userRepositoryMock.Setup(ur => ur.Get(email)).Returns(new User(email, new byte[0], new byte[0], role));
 
             var userService = new UserService(userRepositoryMock.Object);
 
@@ -59,8 +59,8 @@ namespace UnitTests.Application
             {
                 // Assert
                 Assert.That(ex is EmailAlreadyUsedException, Is.True);
-                userRepositoryMock.Verify(ur => ur.GetUser(email), Times.Once());
-                userRepositoryMock.Verify(ur => ur.SaveUser(It.IsAny<User>()), Times.Never);
+                userRepositoryMock.Verify(ur => ur.Get(email), Times.Once());
+                userRepositoryMock.Verify(ur => ur.Save(It.IsAny<User>()), Times.Never);
                 return;
             }
 
@@ -75,10 +75,10 @@ namespace UnitTests.Application
             var email = "victor.castro@tests.com";
             var password = "123456";
 
-            var userSaved = User.CreateUser(email, password, Role.Admin);
+            var savedUser = User.Create(email, password, Role.Admin);
 
             var userRepositoryMock = new Mock<IUserRepository>();
-            userRepositoryMock.Setup(x => x.GetUser(email)).Returns(userSaved);
+            userRepositoryMock.Setup(ur => ur.Get(email)).Returns(savedUser);
 
             var userService = new UserService(userRepositoryMock.Object);
 
@@ -87,7 +87,7 @@ namespace UnitTests.Application
 
             // Assert
             Assert.That(user.Email, Is.EqualTo(email));
-            userRepositoryMock.Verify(ur => ur.GetUser(email), Times.Once());
+            userRepositoryMock.Verify(ur => ur.Get(email), Times.Once());
         }
 
         [Test]
@@ -110,7 +110,7 @@ namespace UnitTests.Application
             {
                 // Assert
                 Assert.That(ex is InvalidCredentialsException, Is.True);
-                userRepositoryMock.Verify(ur => ur.GetUser(email), Times.Once());
+                userRepositoryMock.Verify(ur => ur.Get(email), Times.Once());
                 return;
             }
 
@@ -125,10 +125,10 @@ namespace UnitTests.Application
             var email = "victor.castro@tests.com";
             var password = "123456";
 
-            var userSaved = User.CreateUser(email, password + "789", Role.Admin);
+            var savedUser = User.Create(email, password + "789", Role.Admin);
 
             var userRepositoryMock = new Mock<IUserRepository>();
-            userRepositoryMock.Setup(x => x.GetUser(email)).Returns(userSaved);
+            userRepositoryMock.Setup(ur => ur.Get(email)).Returns(savedUser);
 
             var userService = new UserService(userRepositoryMock.Object);
 
@@ -141,7 +141,7 @@ namespace UnitTests.Application
             {
                 // Assert
                 Assert.That(ex is InvalidCredentialsException, Is.True);
-                userRepositoryMock.Verify(ur => ur.GetUser(email), Times.Once());
+                userRepositoryMock.Verify(ur => ur.Get(email), Times.Once());
                 return;
             }
 

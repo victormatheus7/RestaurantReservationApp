@@ -248,8 +248,8 @@ namespace UnitTests.Application
 
             var reservationRepository = new Mock<IReservationRepository>();
             int callOrder = 0;
-            reservationRepository.Setup(x => x.Get(id)).Returns(reservation).Callback(() => Assert.That(callOrder++, Is.EqualTo(0)));
-            reservationRepository.Setup(x => x.Update(It.IsAny<Reservation>())).Callback(() => Assert.That(callOrder++, Is.EqualTo(1)));
+            reservationRepository.Setup(rr => rr.Get(id)).Returns(reservation).Callback(() => Assert.That(callOrder++, Is.EqualTo(0)));
+            reservationRepository.Setup(rr => rr.Update(It.IsAny<Reservation>())).Callback(() => Assert.That(callOrder++, Is.EqualTo(1)));
 
             var reservationService = new ReservationService(reservationRepository.Object);
 
@@ -327,8 +327,8 @@ namespace UnitTests.Application
 
             var reservationRepository = new Mock<IReservationRepository>();
             int callOrder = 0;
-            reservationRepository.Setup(x => x.Get(id)).Returns(reservation).Callback(() => Assert.That(callOrder++, Is.EqualTo(0)));
-            reservationRepository.Setup(x => x.Update(It.IsAny<Reservation>())).Callback(() => Assert.That(callOrder++, Is.EqualTo(1)));
+            reservationRepository.Setup(rr => rr.Get(id)).Returns(reservation).Callback(() => Assert.That(callOrder++, Is.EqualTo(0)));
+            reservationRepository.Setup(rr => rr.Update(It.IsAny<Reservation>())).Callback(() => Assert.That(callOrder++, Is.EqualTo(1)));
 
             var reservationService = new ReservationService(reservationRepository.Object);
 
@@ -401,8 +401,8 @@ namespace UnitTests.Application
 
             var reservationRepository = new Mock<IReservationRepository>();
             int callOrder = 0;
-            reservationRepository.Setup(x => x.Get(id)).Returns(reservation).Callback(() => Assert.That(callOrder++, Is.EqualTo(0)));
-            reservationRepository.Setup(x => x.Delete(It.IsAny<Guid>())).Callback(() => Assert.That(callOrder++, Is.EqualTo(1)));
+            reservationRepository.Setup(rr => rr.Get(id)).Returns(reservation).Callback(() => Assert.That(callOrder++, Is.EqualTo(0)));
+            reservationRepository.Setup(rr => rr.Delete(It.IsAny<Guid>())).Callback(() => Assert.That(callOrder++, Is.EqualTo(1)));
 
             var reservationService = new ReservationService(reservationRepository.Object);
 
@@ -470,8 +470,8 @@ namespace UnitTests.Application
 
             var reservationRepository = new Mock<IReservationRepository>();
             int callOrder = 0;
-            reservationRepository.Setup(x => x.Get(id)).Returns(reservation).Callback(() => Assert.That(callOrder++, Is.EqualTo(0)));
-            reservationRepository.Setup(x => x.Delete(It.IsAny<Guid>())).Callback(() => Assert.That(callOrder++, Is.EqualTo(1)));
+            reservationRepository.Setup(rr => rr.Get(id)).Returns(reservation).Callback(() => Assert.That(callOrder++, Is.EqualTo(0)));
+            reservationRepository.Setup(rr => rr.Delete(It.IsAny<Guid>())).Callback(() => Assert.That(callOrder++, Is.EqualTo(1)));
 
             var reservationService = new ReservationService(reservationRepository.Object);
 
@@ -526,7 +526,7 @@ namespace UnitTests.Application
             var reservation = new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation);
 
             var reservationRepository = new Mock<IReservationRepository>();
-            reservationRepository.Setup(x => x.Count(date)).Returns(1);
+            reservationRepository.Setup(rr => rr.Count(date)).Returns(1);
 
             var reservationService = new ReservationService(reservationRepository.Object);
 
@@ -552,7 +552,7 @@ namespace UnitTests.Application
             var reservation = new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation);
 
             var reservationRepository = new Mock<IReservationRepository>();
-            reservationRepository.Setup(x => x.Count(date)).Returns(1);
+            reservationRepository.Setup(rr => rr.Count(date)).Returns(1);
 
             var reservationService = new ReservationService(reservationRepository.Object);
 

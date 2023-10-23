@@ -18,37 +18,37 @@ namespace Application.Services
         {
             CheckIfUserAlreadyExists(email);
 
-            var user = User.CreateUser(email, password, role);
+            var user = User.Create(email, password, role);
 
-            _userRepository.SaveUser(user);
+            _userRepository.Save(user);
 
             return user;
         }
 
         public User LoginUser(string email, string password)
         {
-            var userSaved = _userRepository.GetUser(email);
-            CheckIfUserExists(userSaved);
+            var savedUser = _userRepository.Get(email);
+            CheckIfUserExists(savedUser);
 
-            var user = User.CreateUser(email, password, userSaved.Role, userSaved.PasswordSalt);
-            CheckIfCredentialsMatch(userSaved, user);
+            var user = User.Create(email, password, savedUser.Role, savedUser.PasswordSalt);
+            CheckIfCredentialsMatch(savedUser, user);
 
-            return userSaved;
+            return savedUser;
         }
 
-        private static void CheckIfUserExists(User userSaved)
+        private static void CheckIfUserExists(User savedUser)
         {
-            if (userSaved == null) throw new InvalidCredentialsException();
+            if (savedUser == null) throw new InvalidCredentialsException();
         }
 
-        private static void CheckIfCredentialsMatch(User userSaved, User user)
+        private static void CheckIfCredentialsMatch(User savedUser, User user)
         {
-            if (!user.PasswordHash.SequenceEqual(userSaved.PasswordHash)) throw new InvalidCredentialsException();
+            if (!user.PasswordHash.SequenceEqual(savedUser.PasswordHash)) throw new InvalidCredentialsException();
         }
 
         private void CheckIfUserAlreadyExists(string email)
         {
-            var user = _userRepository.GetUser(email);
+            var user = _userRepository.Get(email);
             if (user is not null) throw new EmailAlreadyUsedException(email);
         }
     }

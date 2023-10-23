@@ -4,7 +4,7 @@ namespace Domain.Repositories
 {
     public interface IUserRepository
     {
-        void SaveUser(User user);
-        User GetUser(string email);
+        void Save(User user);
+        User Get(string email);
     }
 }

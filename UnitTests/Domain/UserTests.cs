@@ -21,8 +21,8 @@ namespace UnitTests.Domain
             };
 
             // Act
-            var userCreated1 = User.CreateUser(email: user.Email, password: user.Password, role: user.Role);
-            var userCreated2 = User.CreateUser(email: user.Email, password: user.Password, role: user.Role, passwordSalt: userCreated1.PasswordSalt);
+            var userCreated1 = User.Create(email: user.Email, password: user.Password, role: user.Role);
+            var userCreated2 = User.Create(email: user.Email, password: user.Password, role: user.Role, passwordSalt: userCreated1.PasswordSalt);
 
             // Assert
             Assert.Multiple(() =>
@@ -58,7 +58,7 @@ namespace UnitTests.Domain
             try
             {
                 // Act
-                var userCreated = User.CreateUser(email: user.Email, password: user.Password, role: user.Role);
+                var userCreated = User.Create(email: user.Email, password: user.Password, role: user.Role);
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace UnitTests.Domain
             try
             {
                 // Act
-                var userCreated = User.CreateUser(email: user.Email, password: user.Password, role: role);
+                var userCreated = User.Create(email: user.Email, password: user.Password, role: role);
             }
             catch (Exception ex)
             {
