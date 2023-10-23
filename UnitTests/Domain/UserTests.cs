@@ -22,8 +22,11 @@ namespace UnitTests.Domain
             var userCreated = new User(email: user.Email, password: user.Password);
 
             // Assert
-            Assert.That(userCreated.Email, Is.EqualTo(user.Email));
-            Assert.That(userCreated.Password, Is.EqualTo(user.Password));
+            Assert.Multiple(() =>
+            {
+                Assert.That(userCreated.Email, Is.EqualTo(user.Email));
+                Assert.That(userCreated.Password, Is.EqualTo(user.Password));
+            });
         }
 
         [Theory]
@@ -32,11 +35,11 @@ namespace UnitTests.Domain
         [TestCase("victor.castrotests.com.br", "123456abc")]
         [TestCase("victor@castro", "abcdef123456")]
         [TestCase("very.long@domain.com" +
-                  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
-                  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
-                  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
-                  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
-                  "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", "123456")]
+            "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
+            "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
+            "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
+            "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
+            "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", "123456")]
         public void CreateUser_WithInvalidEmail_ThrowsInvalidEmailException(string email, string password)
         {
             // Arrange
