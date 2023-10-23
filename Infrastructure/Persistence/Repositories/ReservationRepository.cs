@@ -15,7 +15,6 @@ namespace Infrastructure.Persistence.Repositories
             using var connection = CreateConnection();
             connection.Open();
 
-            var query = ReservationQueries.ListReservations + " WHERE [Id] = @Id";
             var count = connection.QueryFirst<int>(ReservationQueries.CountReservationsByDateRange, 
                 new 
                 { 
@@ -39,7 +38,7 @@ namespace Infrastructure.Persistence.Repositories
             using var connection = CreateConnection();
             connection.Open();
 
-            var query = ReservationQueries.ListReservations + " WHERE [Id] = @Id";
+            var query = ReservationQueries.ListReservations + " WHERE id = @Id";
             var reservation = connection.QueryFirst<Reservation>(query, new { Id = id });
 
             return reservation;
@@ -50,7 +49,7 @@ namespace Infrastructure.Persistence.Repositories
             using var connection = CreateConnection();
             connection.Open();
 
-            var query = ReservationQueries.ListReservations + (String.IsNullOrEmpty(email) ? "" : " WHERE [CreatorEmail] = @Email");
+            var query = ReservationQueries.ListReservations + (String.IsNullOrEmpty(email) ? "" : " WHERE creator_email = @Email");
             var reservation = connection.Query<Reservation>(query, new { Email = email });
 
             return reservation;
