@@ -28,7 +28,7 @@ namespace Domain.Entities
         {
             CheckReservationData(date, numberSeats, observation);
 
-            return new Reservation(id ?? new Guid(), creatorEmail, date, numberSeats, (short)locationPreference, observation);
+            return new Reservation(id ?? Guid.NewGuid(), creatorEmail, date, numberSeats, (short)locationPreference, observation);
         }
 
         private static void CheckReservationData(DateTime date, int numberSeats, string observation)

@@ -77,7 +77,7 @@ namespace Infrastructure.Persistence.Repositories
             using var connection = CreateConnection();
             connection.Open();
 
-            connection.Execute(ReservationQueries.SaveReservation,
+            connection.Execute(ReservationQueries.UpdateReservation,
                 new
                 {
                     Id = reservation.Id,

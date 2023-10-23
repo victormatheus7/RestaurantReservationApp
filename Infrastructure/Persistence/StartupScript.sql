@@ -22,7 +22,7 @@ CREATE TABLE "public"."user" (
 CREATE TABLE "public".reservation (
 	id uuid NOT NULL,
 	creator_email varchar(254) NOT NULL,
-	"date" date NOT NULL,
+	"date" timestamp NOT NULL,
 	number_seats int NOT NULL,
 	location_preference_id smallint NOT NULL,
 	observation varchar(1000) NULL,
