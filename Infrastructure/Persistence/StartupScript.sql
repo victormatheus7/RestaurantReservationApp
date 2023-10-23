@@ -16,7 +16,7 @@ CREATE TABLE "public"."user" (
 	password_salt bytea NOT NULL,
 	role_id smallint NOT NULL,
 	CONSTRAINT user_pk PRIMARY KEY (email),
-	CONSTRAINT user_fk FOREIGN KEY (role_id) REFERENCES public."role"(id)
+	CONSTRAINT user_fk FOREIGN KEY (role_id) REFERENCES "public"."role"(id)
 );
 
 CREATE TABLE "public".reservation (
@@ -27,18 +27,18 @@ CREATE TABLE "public".reservation (
 	location_preference_id smallint NOT NULL,
 	observation varchar(1000) NULL,
 	CONSTRAINT reservation_pk PRIMARY KEY (id),
-	CONSTRAINT reservation_fk_location_preference FOREIGN KEY (location_preference_id) REFERENCES public.location_preference(id),
-	CONSTRAINT reservation_fk_user FOREIGN KEY (creator_email) REFERENCES public."user"(email)
+	CONSTRAINT reservation_fk_location_preference FOREIGN KEY (location_preference_id) REFERENCES "public".location_preference(id),
+	CONSTRAINT reservation_fk_user FOREIGN KEY (creator_email) REFERENCES "public"."user"(email)
 );
 
 INSERT INTO "public"."role" (id, "name")
-VALUES(1, 'Client');
+VALUES(0, 'Client');
 
 INSERT INTO "public"."role" (id, "name")
-VALUES(2, 'Admin');
+VALUES(1, 'Admin');
 
 INSERT INTO "public".location_preference (id, "name")
-VALUES(1, 'Indoor');
+VALUES(0, 'Indoor');
 
 INSERT INTO "public".location_preference (id, "name")
-VALUES(2, 'Outdoor');
+VALUES(1, 'Outdoor');

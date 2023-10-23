@@ -10,12 +10,12 @@ namespace Infrastructure.Persistence.Repositories
     {
         public UserRepository(IConfiguration configuration) : base(configuration) { }
 
-        public User Get(string email)
+        public User? Get(string email)
         {
             using var connection = CreateConnection();
             connection.Open();
 
-            var user = connection.QueryFirst<User>(UserQueries.GetUserByEmail, new { Email = email });
+            var user = connection.QueryFirstOrDefault<User>(UserQueries.GetUserByEmail, new { Email = email });
 
             return user;
         }

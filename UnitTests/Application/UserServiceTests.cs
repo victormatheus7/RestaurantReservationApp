@@ -46,7 +46,7 @@ namespace UnitTests.Application
             var role = Role.Admin;
 
             var userRepositoryMock = new Mock<IUserRepository>();
-            userRepositoryMock.Setup(ur => ur.Get(email)).Returns(new User(email, new byte[0], new byte[0], role));
+            userRepositoryMock.Setup(ur => ur.Get(email)).Returns(new User(email, new byte[0], new byte[0], (short)role));
 
             var userService = new UserService(userRepositoryMock.Object);
 

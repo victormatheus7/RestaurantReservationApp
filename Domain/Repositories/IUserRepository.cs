@@ -5,6 +5,6 @@ namespace Domain.Repositories
     public interface IUserRepository
     {
         void Save(User user);
-        User Get(string email);
+        User? Get(string email);
     }
 }

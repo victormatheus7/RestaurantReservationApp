@@ -53,7 +53,7 @@ namespace UnitTests.Application
 
             var reservationRepository = new Mock<IReservationRepository>();
             reservationRepository.Setup(rr => rr.List(email))
-                .Returns(new List<Reservation>() { new Reservation(id, email, date, numberSeats, locationPreference, observation) });
+                .Returns(new List<Reservation>() { new Reservation(id, email, date, numberSeats, (short)locationPreference, observation) });
 
             var reservationService = new ReservationService(reservationRepository.Object);
 
@@ -85,7 +85,7 @@ namespace UnitTests.Application
 
             var reservationRepository = new Mock<IReservationRepository>();
             reservationRepository.Setup(rr => rr.List(It.IsAny<string>()))
-                .Returns(new List<Reservation>() { new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation) });
+                .Returns(new List<Reservation>() { new Reservation(id, customerEmail, date, numberSeats, (short)locationPreference, observation) });
 
             var reservationService = new ReservationService(reservationRepository.Object);
 
@@ -111,7 +111,7 @@ namespace UnitTests.Application
             var observation = "This is a test.";
 
             var reservationRepository = new Mock<IReservationRepository>();
-            reservationRepository.Setup(rr => rr.Get(id)).Returns(new Reservation(id, email, date, numberSeats, locationPreference, observation));
+            reservationRepository.Setup(rr => rr.Get(id)).Returns(new Reservation(id, email, date, numberSeats, (short)locationPreference, observation));
 
             var reservationService = new ReservationService(reservationRepository.Object);
 
@@ -146,7 +146,7 @@ namespace UnitTests.Application
             var observation = "This is a test.";
 
             var reservationRepository = new Mock<IReservationRepository>();
-            reservationRepository.Setup(rr => rr.Get(id)).Returns(new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation));
+            reservationRepository.Setup(rr => rr.Get(id)).Returns(new Reservation(id, customerEmail, date, numberSeats, (short)locationPreference, observation));
 
             var reservationService = new ReservationService(reservationRepository.Object);
 
@@ -182,7 +182,7 @@ namespace UnitTests.Application
             var observation = "This is a test.";
 
             var reservationRepository = new Mock<IReservationRepository>();
-            reservationRepository.Setup(rr => rr.Get(id)).Returns(new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation));
+            reservationRepository.Setup(rr => rr.Get(id)).Returns(new Reservation(id, customerEmail, date, numberSeats, (short)locationPreference, observation));
 
             var reservationService = new ReservationService(reservationRepository.Object);
 
@@ -244,7 +244,7 @@ namespace UnitTests.Application
             var locationPreference = Location.Indoor;
             var observation = "This is a test.";
 
-            var reservation = new Reservation(id, email, date, numberSeats, locationPreference, observation);
+            var reservation = new Reservation(id, email, date, numberSeats, (short)locationPreference, observation);
 
             var reservationRepository = new Mock<IReservationRepository>();
             int callOrder = 0;
@@ -285,7 +285,7 @@ namespace UnitTests.Application
             var locationPreference = Location.Indoor;
             var observation = "This is a test.";
 
-            var reservation = new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation);
+            var reservation = new Reservation(id, customerEmail, date, numberSeats, (short)locationPreference, observation);
 
             var reservationRepository = new Mock<IReservationRepository>();
             reservationRepository.Setup(rr => rr.Get(id)).Returns(reservation);
@@ -323,7 +323,7 @@ namespace UnitTests.Application
             var locationPreference = Location.Indoor;
             var observation = "This is a test.";
 
-            var reservation = new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation);
+            var reservation = new Reservation(id, customerEmail, date, numberSeats, (short)locationPreference, observation);
 
             var reservationRepository = new Mock<IReservationRepository>();
             int callOrder = 0;
@@ -397,7 +397,7 @@ namespace UnitTests.Application
             var locationPreference = Location.Indoor;
             var observation = "This is a test.";
 
-            var reservation = new Reservation(id, email, date, numberSeats, locationPreference, observation);
+            var reservation = new Reservation(id, email, date, numberSeats, (short)locationPreference, observation);
 
             var reservationRepository = new Mock<IReservationRepository>();
             int callOrder = 0;
@@ -428,7 +428,7 @@ namespace UnitTests.Application
             var locationPreference = Location.Indoor;
             var observation = "This is a test.";
 
-            var reservation = new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation);
+            var reservation = new Reservation(id, customerEmail, date, numberSeats, (short)locationPreference, observation);
 
             var reservationRepository = new Mock<IReservationRepository>();
             reservationRepository.Setup(rr => rr.Get(id)).Returns(reservation);
@@ -466,7 +466,7 @@ namespace UnitTests.Application
             var locationPreference = Location.Indoor;
             var observation = "This is a test.";
 
-            var reservation = new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation);
+            var reservation = new Reservation(id, customerEmail, date, numberSeats, (short)locationPreference, observation);
 
             var reservationRepository = new Mock<IReservationRepository>();
             int callOrder = 0;
@@ -523,7 +523,7 @@ namespace UnitTests.Application
             var locationPreference = Location.Indoor;
             var observation = "This is a test.";
 
-            var reservation = new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation);
+            var reservation = new Reservation(id, customerEmail, date, numberSeats, (short)locationPreference, observation);
 
             var reservationRepository = new Mock<IReservationRepository>();
             reservationRepository.Setup(rr => rr.Count(date)).Returns(1);
@@ -549,7 +549,7 @@ namespace UnitTests.Application
             var locationPreference = Location.Indoor;
             var observation = "This is a test.";
 
-            var reservation = new Reservation(id, customerEmail, date, numberSeats, locationPreference, observation);
+            var reservation = new Reservation(id, customerEmail, date, numberSeats, (short)locationPreference, observation);
 
             var reservationRepository = new Mock<IReservationRepository>();
             reservationRepository.Setup(rr => rr.Count(date)).Returns(1);

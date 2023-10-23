@@ -13,13 +13,13 @@ namespace Domain.Entities
         public string Observation { get; }
 
         public Reservation
-            (Guid id, string creatorEmail, DateTime date, int numberSeats, Location locationPreference, string observation)
+            (Guid id, string creatorEmail, DateTime date, int numberSeats, short locationPreference, string observation)
         {
             Id = id;
             CreatorEmail = creatorEmail;
             Date = date;
             NumberSeats = numberSeats;
-            LocationPreference = locationPreference;
+            LocationPreference = (Location)locationPreference;
             Observation = observation;
         }
 
@@ -28,7 +28,7 @@ namespace Domain.Entities
         {
             CheckReservationData(date, numberSeats, observation);
 
-            return new Reservation(id ?? new Guid(), creatorEmail, date, numberSeats, locationPreference, observation);
+            return new Reservation(id ?? new Guid(), creatorEmail, date, numberSeats, (short)locationPreference, observation);
         }
 
         private static void CheckReservationData(DateTime date, int numberSeats, string observation)

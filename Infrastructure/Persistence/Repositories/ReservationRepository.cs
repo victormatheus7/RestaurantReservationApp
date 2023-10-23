@@ -33,13 +33,13 @@ namespace Infrastructure.Persistence.Repositories
             connection.Execute(ReservationQueries.DeleteReservation, new { Id = id });
         }
 
-        public Reservation Get(Guid id)
+        public Reservation? Get(Guid id)
         {
             using var connection = CreateConnection();
             connection.Open();
 
             var query = ReservationQueries.ListReservations + " WHERE id = @Id";
-            var reservation = connection.QueryFirst<Reservation>(query, new { Id = id });
+            var reservation = connection.QueryFirstOrDefault<Reservation>(query, new { Id = id });
 
             return reservation;
         }

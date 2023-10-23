@@ -14,7 +14,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public NpgsqlConnection CreateConnection()
         {
-            return new NpgsqlConnection(_configuration.GetConnectionString("DataBase"));
+            return new NpgsqlConnection(_configuration.GetConnectionString("Default"));
         }
     }
 }

@@ -13,12 +13,12 @@ namespace Domain.Entities
         public byte[] PasswordSalt { get; private set; }
         public Role Role { get; private set; }
 
-        public User(string email, byte[] passwordHash, byte[] passwordSalt, Role role)
+        public User(string email, byte[] passwordHash, byte[] passwordSalt, short role)
         {
             Email = email;
             PasswordHash = passwordHash;
             PasswordSalt = passwordSalt;
-            Role = role;
+            Role = (Role)role;
         }
 
         public static User Create(string email, string password, Role role, byte[]? passwordSalt = null)
@@ -30,7 +30,7 @@ namespace Domain.Entities
             return new User(email,
                 hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password)),
                 hmac.Key,
-                role);
+                (short)role);
         }
 
         private static void CheckUserData(string email, string password)
