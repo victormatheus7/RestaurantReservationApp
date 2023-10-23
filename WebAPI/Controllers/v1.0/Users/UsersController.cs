@@ -18,11 +18,11 @@ namespace WebAPI.Controllers.v1._0.Users
 
         [Route("create")]
         [HttpPost]
-        public IActionResult AddUser([FromBody]UserViewModel user)
+        public IActionResult CreateUser([FromBody]UserViewModel user)
         {
             try
             {
-                _userService.CreateUser(user.email, user.password, user.role);
+                _userService.CreateUser(user.Email, user.Password, user.Role);
             }
             catch (Exception ex)
             {

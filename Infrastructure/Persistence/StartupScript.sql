@@ -23,7 +23,7 @@ CREATE TABLE "public".reservation (
 	id uuid NOT NULL,
 	creator_email varchar(254) NOT NULL,
 	"date" date NOT NULL,
-	number_seats smallint NOT NULL,
+	number_seats int NOT NULL,
 	location_preference_id smallint NOT NULL,
 	observation varchar(1000) NULL,
 	CONSTRAINT reservation_pk PRIMARY KEY (id),

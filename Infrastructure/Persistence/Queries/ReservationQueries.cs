@@ -11,7 +11,7 @@ namespace Infrastructure.Persistence.Queries
                      date AS ""Date"",
                      number_seats AS ""NumberSeats"",
                      location_preference_id AS ""LocationPreference"",
-                     observation AS ""Observation"",
+                     observation AS ""Observation""
               FROM public.reservation";
 
         public static string SaveReservation =>
