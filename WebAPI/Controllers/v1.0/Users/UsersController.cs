@@ -23,32 +23,17 @@ namespace WebAPI.Controllers.v1._0.Users
         [HttpPost("create")]
         public IActionResult CreateUser([FromBody]UserViewModel user)
         {
-            try
-            {
-                _userService.CreateUser(user.Email, user.Password, user.Role);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
+            _userService.CreateUser(user.Email, user.Password, user.Role);
+            
             return Ok();
         }
 
         [HttpGet("login")]
         public IActionResult LoginUser(string email, string password)
         {
-            User user;
-            try
-            {
-                user = _userService.LoginUser(email, password);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var user = _userService.LoginUser(email, password);
 
-            string jwt = GetJWT(user);
+            var jwt = GetJWT(user);
 
             return Ok(jwt);
         }

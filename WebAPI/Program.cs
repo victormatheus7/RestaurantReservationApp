@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using WebAPI.Middlewares;
 
 namespace WebAPI
 {
@@ -47,7 +48,9 @@ namespace WebAPI
                     };
                 });
 
-            var app = builder.Build();
+            var app = builder.Build(); 
+
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

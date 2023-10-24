@@ -3,7 +3,6 @@ using Domain.Entities;
 using Domain.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using System.Security.Claims;
 
 namespace WebAPI.Controllers.v1._0.Reservations
@@ -13,72 +12,45 @@ namespace WebAPI.Controllers.v1._0.Reservations
     [Authorize]
     public class ReservationsController : ControllerBase
     {
-        private readonly ILogger<ReservationsController> _logger;
         private readonly ReservationService _reservationService;
 
-        public ReservationsController(ILogger<ReservationsController> logger, ReservationService reservationService)
+        public ReservationsController(ReservationService reservationService)
         {
-            _logger = logger;
             _reservationService = reservationService;
         }
 
         [HttpPost]
         public IActionResult CreateReservation([FromBody]ReservationViewModel reservation)
         {
-            try
-            {
-                var userEmail = GetAuthenticatedUserEmail();
+            var userEmail = GetAuthenticatedUserEmail();
 
-                _reservationService.CreateReservation(userEmail,
-                    reservation.Date,
-                    reservation.NumberSeats,
-                    reservation.LocationPreference,
-                    reservation.Observation);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _reservationService.CreateReservation(userEmail,
+                reservation.Date,
+                reservation.NumberSeats,
+                reservation.LocationPreference,
+                reservation.Observation);
 
             return Ok();
         }
 
         [HttpGet("{id:guid}")]
-        [ProducesResponseType(typeof(Reservation), (int)HttpStatusCode.OK)]
-        public IActionResult GetReservation(Guid id)
+        public ActionResult<IEnumerable<Reservation>> GetReservation(Guid id)
         {
-            Reservation reservation;
-            try
-            {
-                var userEmail = GetAuthenticatedUserEmail();
-                var userRole = GetAuthenticatedUserRole();
+            var userEmail = GetAuthenticatedUserEmail();
+            var userRole = GetAuthenticatedUserRole();
 
-                reservation = _reservationService.GetReservation(userEmail, userRole, id);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var reservation = _reservationService.GetReservation(userEmail, userRole, id);
 
             return Ok(reservation);
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Reservation>), (int)HttpStatusCode.OK)]
-        public IActionResult ListReservations()
+        public ActionResult<IEnumerable<Reservation>> ListReservations()
         {
-            IEnumerable<Reservation> reservations;
-            try
-            {
-                var userEmail = GetAuthenticatedUserEmail();
-                var userRole = GetAuthenticatedUserRole();
+            var userEmail = GetAuthenticatedUserEmail();
+            var userRole = GetAuthenticatedUserRole();
 
-                reservations = _reservationService.ListUsersReservations(userEmail, userRole);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var reservations = _reservationService.ListUsersReservations(userEmail, userRole);
 
             return Ok(reservations);
         }
@@ -86,22 +58,15 @@ namespace WebAPI.Controllers.v1._0.Reservations
         [HttpPut("{id:guid}")]
         public IActionResult UpdateReservation(Guid id, [FromBody]ReservationViewModel reservation)
         {
-            try
-            {
-                var userEmail = GetAuthenticatedUserEmail();
-                var userRole = GetAuthenticatedUserRole();
+            var userEmail = GetAuthenticatedUserEmail();
+            var userRole = GetAuthenticatedUserRole();
 
-                _reservationService.UpdateReservation(userEmail, userRole,
-                    id,
-                    reservation.Date,
-                    reservation.NumberSeats,
-                    reservation.LocationPreference,
-                    reservation.Observation);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _reservationService.UpdateReservation(userEmail, userRole,
+                id,
+                reservation.Date,
+                reservation.NumberSeats,
+                reservation.LocationPreference,
+                reservation.Observation);
 
             return Ok();
         }
@@ -109,33 +74,18 @@ namespace WebAPI.Controllers.v1._0.Reservations
         [HttpDelete("{id:guid}")]
         public IActionResult DeleteReservation(Guid id)
         {
-            try
-            {
-                var userEmail = GetAuthenticatedUserEmail();
-                var userRole = GetAuthenticatedUserRole();
+            var userEmail = GetAuthenticatedUserEmail();
+            var userRole = GetAuthenticatedUserRole();
 
-                _reservationService.DeleteReservation(userEmail, userRole, id);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _reservationService.DeleteReservation(userEmail, userRole, id);
 
             return Ok();
         }
 
         [HttpGet("count/{date:dateTime}"), AllowAnonymous]
-        public IActionResult CountReservationsByDay(DateTime date)
+        public ActionResult<int> CountReservationsByDay(DateTime date)
         {
-            int count;
-            try
-            {
-                count = _reservationService.CountReservationsByDay(date);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var count = _reservationService.CountReservationsByDay(date);
 
             return Ok(count);
         }
