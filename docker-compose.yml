@@ -1,4 +1,5 @@
-version: "3.9"
+version: '3.4'
+
 services:
   postgres-db:
     image: postgres:latest
@@ -10,8 +11,11 @@ services:
       - "5432:5432"
     volumes:
       - ./Infrastructure/Persistence/StartupScript.sql:/docker-entrypoint-initdb.d/init.sql
-  api:
-    build: .
+  webapi:
+    image: ${DOCKER_REGISTRY-}webapi
+    build:
+      context: .
+      dockerfile: WebAPI/Dockerfile
     environment:
       - ConnectionStrings__Default=User ID=postgres;Password=mysecretpassword;Host=postgres-db;Port=5432;Database=restaurant_reservation;
     ports:
